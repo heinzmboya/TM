@@ -10,13 +10,13 @@ const cardItems = computed(() => [
         count: 6,
         colors: "bg-amber-50",
         details: [
-            { title: "highest", count: 0, component: ChevUp2 },
-            { title: "medium", count: 0, component: Equal },
+            { title: "highest", count: 2, component: ChevUp2 },
+            { title: "medium", count: 3, component: Equal },
             {
                 title: "low",
-                count: 0,
+                count: 1,
                 component: ChevDown,
-                class: "stroke-blue-600",
+                class: "!stroke-blue-600",
             },
         ],
     },

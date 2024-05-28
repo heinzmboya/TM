@@ -3,6 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import UserCard from "@/Components/UserCard.vue";
 import Analytics from "@/Components/Analytics.vue";
+import ChevDown from "@/Components/Icons/ChevDown.vue";
 </script>
 
 <template>
@@ -38,7 +39,24 @@ import Analytics from "@/Components/Analytics.vue";
             </section>
 
             <!-- input -->
-            
+            <section class="flex gap-x-4">
+                <div class="relative w-full">
+                    <div
+                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                    >
+                        <SearchIcon />
+                    </div>
+
+                    <input
+                        type="text"
+                        class="border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+                        placeholder="Search todos..."
+                    />
+                </div>
+
+                <BaseDrop :isStatus="true" width="w-[191px]" />
+                <BaseDrop />
+            </section>
         </div>
     </AuthenticatedLayout>
 </template>

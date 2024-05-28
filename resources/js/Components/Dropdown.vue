@@ -14,6 +14,9 @@ const props = defineProps({
         type: String,
         default: 'py-1 bg-white',
     },
+    wrapperClass: {
+        default: 'shadow-lg',
+    },
 });
 
 const closeOnEscape = (e) => {
@@ -63,8 +66,8 @@ const open = ref(false);
         >
             <div
                 v-show="open"
-                class="absolute z-50 mt-2 rounded-md shadow-lg"
-                :class="[widthClass, alignmentClasses]"
+                class="absolute z-50 mt-2 rounded-md"
+                :class="[widthClass, alignmentClasses, wrapperClass]"
                 style="display: none"
                 @click="open = false"
             >
