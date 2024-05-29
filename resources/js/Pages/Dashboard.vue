@@ -4,22 +4,50 @@ import { Head } from "@inertiajs/vue3";
 import UserCard from "@/Components/UserCard.vue";
 import Analytics from "@/Components/Analytics.vue";
 import { computed, reactive } from "vue";
+import { priorityEnum, statusEnum } from "@/util";
 
 const categories = reactive({
     pending: {
         title: "Pending",
-        expanded: false,
-        todos: [],
+        expanded: true,
+        todos: [
+            {
+                id: "1234dsf",
+                title: "Fish project",
+                description: "Fish project",
+                createdAt: "Mar 25th 2024",
+                status: statusEnum.PENDING,
+                priority: priorityEnum.HIGHEST,
+            },
+        ],
     },
     backlog: {
         title: "Backlog",
         expanded: false,
-        todos: [],
+        todos: [
+            {
+                id: "1234dsf",
+                title: "Fish project",
+                description: "Fish project",
+                createdAt: "Mar 25th 2024",
+                status: statusEnum.BACKLOG,
+                priority: priorityEnum.HIGH,
+            },
+        ],
     },
     complete: {
         title: "Complete",
         expanded: false,
-        todos: [],
+        todos: [
+            {
+                id: "1234dsf",
+                title: "Fish project",
+                description: "Fish project",
+                createdAt: "Mar 25th 2024",
+                status: statusEnum.COMPLETE,
+                priority: priorityEnum.LOW,
+            },
+        ],
     },
 });
 
@@ -101,15 +129,20 @@ const _categories = computed(() => 0);
                     </div>
 
                     <section
-                        class="transition-all duration-700 ease-in-out grid"
+                        class="transition-all duration-500 ease-in-out grid"
                         :class="
                             cat.expanded
                                 ? 'grid-rows-[1fr] opacity-100'
                                 : 'grid-rows-[0fr] opacity-0'
                         "
                     >
-                        <div class="overflow-hidden">
-                            <TodoItem v-for="m in 5" class="my-4" />
+                        <div :class="!cat.expanded && 'overflow-hidden'">
+                            <TodoItem
+                                v-for="todo in cat.todos"
+                                :key="todo.id"
+                                :item="todo"
+                                class="my-4"
+                            />
                         </div>
                     </section>
                 </div>

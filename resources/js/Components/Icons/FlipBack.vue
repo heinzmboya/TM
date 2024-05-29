@@ -1,0 +1,17 @@
+<template>
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M2.5 7.5H13.75C15.8211 7.5 17.5 9.17893 17.5 11.25C17.5 13.3211 15.8211 15 13.75 15H10M2.5 7.5L5.83333 4.16666M2.5 7.5L5.83333 10.8333"
+            stroke="#111827"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+    </svg>
+</template>

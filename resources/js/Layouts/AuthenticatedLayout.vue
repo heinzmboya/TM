@@ -172,7 +172,7 @@ const showingNavigationDropdown = ref(false);
             </header> -->
 
             <!-- Page Content -->
-            <main class="bbd max-w-[954px] mx-auto py-6">
+            <main class="max-w-[954px] mx-auto py-6">
                 <slot />
             </main>
         </div>
