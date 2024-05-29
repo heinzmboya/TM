@@ -16,6 +16,9 @@ const props = defineProps({
     width: {
         default: "w-[195px]",
     },
+    label: {
+        default: "",
+    },
 });
 
 const priorities = [
@@ -71,6 +74,7 @@ function onClick(item) {
         align="right"
         width="48"
         wrapperClass="border border-gray-200"
+        :class="width"
     >
         <template #trigger>
             <button
@@ -78,11 +82,18 @@ function onClick(item) {
                 class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
                 :class="width"
             >
-                <span>{{ basedropItem.title }}:</span>
                 <span
-                    class="w-full text-start font-inter capitalize text-gray-900"
-                    >{{ basedropItem.selection }}</span
+                    class="w-full text-start text-gray-900"
+                    v-if="label"
+                    >{{ label }}</span
                 >
+                <template v-else>
+                    <span>{{ basedropItem.title }}:</span>
+                    <span
+                        class="w-full text-start font-inter capitalize text-gray-900"
+                        >{{ basedropItem.selection }}</span
+                    >
+                </template>
                 <ChevDown class="flex-shrink-0" />
             </button>
         </template>

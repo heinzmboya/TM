@@ -78,12 +78,7 @@ const _categories = computed(() => 0);
             <section class="flex justify-between items-center">
                 <p class="text-[32px] font-bold text-gray-900">Todos</p>
 
-                <button
-                    type="button"
-                    class="text-white bg-primary-600 hover:bg-primary-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-3 focus:outline-none"
-                >
-                    + Add todo
-                </button>
+                <AddTodo />
             </section>
 
             <!-- inputs -->
