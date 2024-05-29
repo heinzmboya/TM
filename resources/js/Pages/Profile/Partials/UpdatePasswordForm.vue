@@ -36,7 +36,7 @@ const updatePassword = () => {
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Update Password</h2>
+            <h2 class="text-lg font-medium text-gray-900">Password</h2>
         </header>
 
         <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
@@ -76,7 +76,7 @@ const updatePassword = () => {
             <div>
                 <InputLabel
                     for="password_confirmation"
-                    value="Confirm Password"
+                    value="Confirm New Password"
                 />
 
                 <TextInput

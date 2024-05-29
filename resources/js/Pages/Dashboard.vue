@@ -1,7 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
-import UserCard from "@/Components/UserCard.vue";
 import Analytics from "@/Components/Analytics.vue";
 import { computed, reactive } from "vue";
 import { priorityEnum, statusEnum } from "@/util";
