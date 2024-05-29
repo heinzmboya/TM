@@ -3,7 +3,27 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import UserCard from "@/Components/UserCard.vue";
 import Analytics from "@/Components/Analytics.vue";
-import ChevDown from "@/Components/Icons/ChevDown.vue";
+import { computed, reactive } from "vue";
+
+const categories = reactive({
+    pending: {
+        title: "Pending",
+        expanded: false,
+        todos: [],
+    },
+    backlog: {
+        title: "Backlog",
+        expanded: false,
+        todos: [],
+    },
+    complete: {
+        title: "Complete",
+        expanded: false,
+        todos: [],
+    },
+});
+
+const _categories = computed(() => 0);
 </script>
 
 <template>
@@ -38,7 +58,7 @@ import ChevDown from "@/Components/Icons/ChevDown.vue";
                 </button>
             </section>
 
-            <!-- input -->
+            <!-- inputs -->
             <section class="flex gap-x-4">
                 <div class="relative w-full">
                     <div
@@ -56,6 +76,43 @@ import ChevDown from "@/Components/Icons/ChevDown.vue";
 
                 <BaseDrop :isStatus="true" width="w-[191px]" />
                 <BaseDrop />
+            </section>
+
+            <!-- accords -->
+            <section>
+                <div
+                    v-for="cat in categories"
+                    :key="cat.title"
+                    class="border-b last:border-0 border-gray-300"
+                >
+                    <div
+                        class="flex justify-between items-center py-3 cursor-default group"
+                        @click="cat.expanded = !cat.expanded"
+                    >
+                        <p
+                            class="text-xl font-medium group-hover:text-primary-600"
+                        >
+                            {{ cat.title }}
+                        </p>
+                        <ChevDown
+                            class="transform origin-center transition duration-200 ease-out"
+                            :class="{ '!rotate-180': cat.expanded }"
+                        />
+                    </div>
+
+                    <section
+                        class="transition-all duration-700 ease-in-out grid"
+                        :class="
+                            cat.expanded
+                                ? 'grid-rows-[1fr] opacity-100'
+                                : 'grid-rows-[0fr] opacity-0'
+                        "
+                    >
+                        <div class="overflow-hidden">
+                            <TodoItem v-for="m in 5" class="my-4" />
+                        </div>
+                    </section>
+                </div>
             </section>
         </div>
     </AuthenticatedLayout>
