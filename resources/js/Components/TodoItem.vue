@@ -1,31 +1,29 @@
 <script setup>
-import { computed } from "vue";
+import { computed, inject } from 'vue';
+import CheckCircle from './Icons/CheckCircle.vue';
+import FlipBack from './Icons/FlipBack.vue';
+import PencilLine from './Icons/PencilLine.vue';
+import Trash from './Icons/Trash.vue';
+import { priorityEnum, statusEnum } from '@/util';
+import ClockForward from './Icons/ClockForward.vue';
+import { useForm } from '@inertiajs/vue3';
 
-import CheckCircle from "./Icons/CheckCircle.vue";
-import FlipBack from "./Icons/FlipBack.vue";
-import PencilLine from "./Icons/PencilLine.vue";
-import Trash from "./Icons/Trash.vue";
-import { priorityEnum, statusEnum } from "@/util";
-import ClockForward from "./Icons/ClockForward.vue";
+const todoModal = inject('todoModal');
 
-const emit = defineEmits(["update:checked"]);
+const form = useForm({
+    status: null,
+});
+
+const emit = defineEmits(['update:checked']);
 
 const props = defineProps({
-    item: {
+    todo: {
         required: true,
-        // default: {
-        //     id: "1234dsf",
-        //     title: "Fish project",
-        //     description: "Fish project",
-        //     createdAt: "Mar 25th 2024",
-        //     status: "pending",
-        //     priority: "high",
-        // },
     },
 });
 
 function toStatus() {
-    switch (props.item.status) {
+    switch (props.todo.status) {
         case statusEnum.PENDING:
             return {
                 status: statusEnum.BACKLOG,
@@ -42,47 +40,57 @@ function toStatus() {
 const todoActions = computed(() =>
     [
         {
-            title: "Mark as done",
+            title: 'Mark as done',
             icon: CheckCircle,
-            action: () => {},
-            class: "text-success-600",
-            hidden: props.item.status === statusEnum.COMPLETE,
+            action: () => {
+                form.status = statusEnum.COMPLETE;
+                form.patch(`dashboard/${props.todo.id}`, form);
+            },
+            class: 'text-success-600',
+            hidden: props.todo.status === statusEnum.COMPLETE,
         },
         {
             title: `Move to ${toStatus().status}`,
             icon: toStatus().icon,
-            action: () => {},
+            action: () => {
+                form.status = toStatus().status;
+                form.patch(`dashboard/${props.todo.id}`, form);
+            },
         },
         {
-            title: "Edit todo",
+            title: 'Edit todo',
             icon: PencilLine,
-            action: () => {},
-            hidden: props.item.status === statusEnum.COMPLETE,
+            action: () => {
+                todoModal.editTodo = props.todo;
+                todoModal.showing = true;
+            },
+            hidden: props.todo.status === statusEnum.COMPLETE,
         },
         {
-            title: "Delete todo",
+            title: 'Delete todo',
             icon: Trash,
-            action: () => {},
-            class: "text-red-600",
+            action: () => {
+                form.delete(`/dashboard/${props.todo.id}`);
+                // router.delete(`/dashboard/${props.todo.id}`);
+            },
+            class: 'text-red-600',
         },
     ].filter((e) => !e.hidden)
 );
 </script>
 
 <template>
-    <div
-        class="p-4 border border-gray-100 rounded-[10px] flex justify-between"
-    >
+    <div class="p-4 border border-gray-100 rounded-[10px] flex justify-between">
         <section class="space-y-2 font-medium font-inter text-gray-500">
-            <div class="text-gray-900 text-base">{{ item.title }}</div>
-            <div class="text-xs">{{ item.createdAt }}</div>
+            <div class="text-gray-900 text-base">{{ todo.title }}</div>
+            <div class="text-xs">{{ todo.createdAt }}</div>
             <div class="text-sm font-normal">
-                {{ item.description }}
+                {{ todo.description }}
             </div>
 
             <section class="flex gap-x-2">
                 <BaseIndicator
-                    v-for="(indicator, i) in [item.status, item.priority]"
+                    v-for="(indicator, i) in [todo.status, todo.priority]"
                     :isStatus="i === 0"
                     :value="indicator"
                     class="space-x-1 px-[6px] py-[3px] rounded-[99px] !bg-gray-50 text-xs"
@@ -109,6 +117,7 @@ const todoActions = computed(() =>
                     :href="route('profile.edit')"
                     class="flex items-center space-x-2 font-medium py-3 px-4 text-sm text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 w-full"
                     :class="item.class"
+                    @click="item.action(todo.id)"
                 >
                     <component :is="item.icon" />
                     <span>{{ item.title }}</span>

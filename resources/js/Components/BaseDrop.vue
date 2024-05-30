@@ -1,71 +1,75 @@
 <script setup>
-import { computed, ref } from "vue";
-import ChevUp2 from "@/Components/Icons/ChevUp2.vue";
-import Equal from "@/Components/Icons/Equal.vue";
-import ChevDown from "@/Components/Icons/ChevDown.vue";
+import { computed, ref } from 'vue';
+import ChevUp2 from '@/Components/Icons/ChevUp2.vue';
+import Equal from '@/Components/Icons/Equal.vue';
+import ChevDown from '@/Components/Icons/ChevDown.vue';
 
-const emit = defineEmits(["update:checked"]);
+const emit = defineEmits(['update:checked']);
 
 const props = defineProps({
     type: {
-        default: "priority",
+        default: 'priority',
     },
     isStatus: {
         default: false,
     },
     width: {
-        default: "w-[195px]",
+        default: 'w-[195px]',
     },
     label: {
-        default: "",
+        default: '',
     },
 });
 
 const priorities = [
     {
-        value: "all",
+        value: 'all',
     },
-    { value: "highest", icon: ChevUp2 },
-    { value: "high", icon: ChevDown, class: "!stroke-red-600 rotate-180" },
-    { value: "medium", icon: Equal },
+    { value: 'highest', icon: ChevUp2 },
+    { value: 'high', icon: ChevDown, class: '!stroke-red-600 rotate-180' },
+    { value: 'medium', icon: Equal },
     {
-        value: "low",
+        value: 'low',
         icon: ChevDown,
-        class: "!stroke-blue-600",
+        class: '!stroke-blue-600',
     },
-    { value: "lowest", icon: ChevUp2, class: "!stroke-blue-600 rotate-180" },
+    { value: 'lowest', icon: ChevUp2, class: '!stroke-blue-600 rotate-180' },
 ];
 
 const statuses = [
     {
-        value: "all",
+        value: 'all',
     },
-    { value: "pending", class: "bg-amber-400" },
-    { value: "backlog", class: "bg-gray-500" },
-    { value: "complete", class: "bg-success-600" },
+    { value: 'pending', class: 'bg-amber-400' },
+    { value: 'backlog', class: 'bg-gray-500' },
+    { value: 'complete', class: 'bg-success-600' },
 ];
 
-const selectedStatus = ref("All");
-const selectedPriority = ref("All");
+const selectedStatus = ref('All');
+const selectedPriority = ref('All');
+
+const model = defineModel();
 
 const basedropItem = computed(() =>
     props.isStatus
         ? {
-              title: "status",
+              title: 'status',
               selection: selectedStatus.value,
               items: statuses,
           }
         : {
-              title: "priority",
+              title: 'priority',
               selection: selectedPriority.value,
               items: priorities,
           }
 );
 
-function onClick(item) {
-    console.log(item);
-    if (props.isStatus) return (selectedStatus.value = item.value);
-    selectedPriority.value = item.value;
+function onUpdate(item) {
+    console.log(item, model.value);
+    // if (props.isStatus) return (selectedStatus.value = item.value);
+    // selectedPriority.value = item.value;
+
+    model.value = item;
 }
 </script>
 
@@ -82,11 +86,11 @@ function onClick(item) {
                 class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
                 :class="width"
             >
-                <span
-                    class="w-full text-start text-gray-900"
-                    v-if="label"
-                    >{{ label }}</span
-                >
+                <!-- label comes from addtodo modal -->
+                <span class="w-full text-start text-gray-900" v-if="label">
+                    {{ model || label }}
+                </span>
+
                 <template v-else>
                     <span>{{ basedropItem.title }}:</span>
                     <span
@@ -99,7 +103,7 @@ function onClick(item) {
         </template>
 
         <template #content>
-            <BaseIndicator :isStatus />
+            <BaseIndicator @update="onUpdate" :isStatus />
             <!-- <div
                 v-for="pr in basedropItem.items"
                 :key="pr.value"

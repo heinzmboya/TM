@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import { computed, reactive } from 'vue';
+import { computed, provide, reactive } from 'vue';
 import { statusEnum, groupBy } from '@/util';
 
 const props = defineProps({
@@ -9,6 +9,13 @@ const props = defineProps({
         default: null,
     },
 });
+
+const todoModal = reactive({
+    showing: false,
+    editTodo: null,
+});
+
+provide('todoModal', todoModal);
 
 const expanded = reactive({
     [statusEnum.PENDING]: false,
@@ -60,7 +67,7 @@ function toggleAccordion(category) {
             <section class="flex justify-between items-center">
                 <p class="text-[32px] font-bold text-gray-900">Todos</p>
 
-                <AddTodo />
+                <AddEditTodo />
             </section>
 
             <!-- inputs -->
@@ -117,7 +124,7 @@ function toggleAccordion(category) {
                             <TodoItem
                                 v-for="todo in cat.todos"
                                 :key="todo.id"
-                                :item="todo"
+                                :todo
                                 class="my-4"
                             />
                         </div>

@@ -1,14 +1,14 @@
 <script setup>
-import { computed, ref } from "vue";
-import ChevUp2 from "@/Components/Icons/ChevUp2.vue";
-import Equal from "@/Components/Icons/Equal.vue";
-import ChevDown from "@/Components/Icons/ChevDown.vue";
+import { computed, ref } from 'vue';
+import ChevUp2 from '@/Components/Icons/ChevUp2.vue';
+import Equal from '@/Components/Icons/Equal.vue';
+import ChevDown from '@/Components/Icons/ChevDown.vue';
 
-const emit = defineEmits(["update:checked"]);
+const emit = defineEmits(['update']);
 
 const props = defineProps({
     type: {
-        default: "priority",
+        default: 'priority',
     },
     isStatus: {
         default: false,
@@ -23,50 +23,57 @@ const props = defineProps({
 
 const priorities = [
     {
-        value: "all",
+        value: 'all',
     },
-    { value: "highest", icon: ChevUp2 },
-    { value: "high", icon: ChevDown, class: "!stroke-red-600 rotate-180" },
-    { value: "medium", icon: Equal },
+    { value: 'highest', icon: ChevUp2 },
+    { value: 'high', icon: ChevDown, class: '!stroke-red-600 rotate-180' },
+    { value: 'medium', icon: Equal },
     {
-        value: "low",
+        value: 'low',
         icon: ChevDown,
-        class: "!stroke-blue-600",
+        class: '!stroke-blue-600',
     },
-    { value: "lowest", icon: ChevUp2, class: "!stroke-blue-600 rotate-180" },
+    { value: 'lowest', icon: ChevUp2, class: '!stroke-blue-600 rotate-180' },
 ];
 
 const statuses = [
     {
-        value: "all",
+        value: 'all',
     },
-    { value: "pending", class: "bg-amber-400" },
-    { value: "backlog", class: "bg-gray-500" },
-    { value: "complete", class: "bg-success-600" },
+    { value: 'pending', class: 'bg-amber-400' },
+    { value: 'backlog', class: 'bg-gray-500' },
+    { value: 'complete', class: 'bg-success-600' },
 ];
 
-const selectedStatus = ref("All");
-const selectedPriority = ref("All");
+const selectedStatus = ref('All');
+const selectedPriority = ref('All');
 
 const basedropItem = computed(() =>
     props.isStatus
         ? {
-              title: "status",
+              title: 'status',
               selection: selectedStatus.value,
-              items: statuses.filter(e => !props.value ? e : e.value === props.value),
+              items: statuses.filter((e) =>
+                  !props.value ? e : e.value === props.value
+              ),
           }
         : {
-              title: "priority",
+              title: 'priority',
               selection: selectedPriority.value,
-              items: priorities.filter(e => !props.value ? e : e.value === props.value),
+              items: priorities.filter((e) =>
+                  !props.value ? e : e.value === props.value
+              ),
           }
 );
 
 function onClick(item) {
-    if (props.value) return
-    console.log(item);
-    if (props.isStatus) return (selectedStatus.value = item.value);
-    selectedPriority.value = item.value;
+    if (props.value) return;
+    console.log(item.value);
+    props.isStatus
+        ? (selectedStatus.value = item.value)
+        : (selectedPriority.value = item.value);
+
+    emit('update', item.value);
 }
 </script>
 

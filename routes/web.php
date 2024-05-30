@@ -30,9 +30,20 @@ Route::get(
     [TodoController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/dashboard', [TodoController::class, 'index'])
-//     ->middleware(['auth', 'verified'])
-//     ->name('dashboard');
+Route::post(
+    '/dashboard',
+    [TodoController::class, 'store']
+)->middleware(['auth', 'verified'])->name('dashboard.post');
+
+Route::patch(
+    '/dashboard/{id}',
+    [TodoController::class, 'update']
+)->middleware(['auth', 'verified'])->name('todos.update');
+
+Route::delete(
+    '/dashboard/{id}',
+    [TodoController::class, 'destroy']
+)->middleware(['auth', 'verified'])->name('todos.destroy');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
