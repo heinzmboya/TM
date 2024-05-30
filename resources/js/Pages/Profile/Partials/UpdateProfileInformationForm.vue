@@ -25,14 +25,12 @@ const form = useForm({
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">
-                Profile
-            </h2>
+            <h2 class="text-lg font-medium text-gray-900">Profile</h2>
         </header>
 
         <form
             @submit.prevent="form.patch(route('profile.update'))"
-            class="mt-6 space-y-6"
+            class="mt-6 space-y-6 font-inter"
         >
             <div>
                 <InputLabel for="name" value="Name" />
@@ -87,7 +85,15 @@ const form = useForm({
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+                <section class="flex justify-between w-full">
+                    <div />
+                    <Btn
+                        type="submit"
+                        :disabled="form.processing || !form.isDirty"
+                    >
+                        Save changes
+                    </Btn>
+                </section>
 
                 <Transition
                     enter-active-class="transition ease-in-out"

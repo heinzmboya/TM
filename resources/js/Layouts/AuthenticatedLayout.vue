@@ -1,20 +1,13 @@
 <script setup>
 import { ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
-import UserLogo from '@/Components/Icons/UserLogo.vue';
-import LogoutLogo from '@/Components/Icons/LogoutLogo.vue';
 
 const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
     <div>
-        <div class="min-h-screen bg-white">
+        <div class="h-screen bg-white scroller overflow-y-auto">
             <nav class="border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <BaseHeader>
@@ -106,17 +99,15 @@ const showingNavigationDropdown = ref(false);
                 </div>
             </nav>
 
-            <!-- Page Heading -->
-            <!-- <header class="" v-if="$slots.header">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
-                </div>
-            </header> -->
-
             <!-- Page Content -->
-            <main class="max-w-[954px] mx-auto py-6">
+            <main class="max-w-[954px] mx-auto p-6">
                 <slot />
             </main>
         </div>
     </div>
 </template>
+<style>
+.scroller {
+    scrollbar-width: none;
+}
+</style>

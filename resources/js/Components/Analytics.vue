@@ -55,7 +55,7 @@ const cardItems = computed(() => {
             v-for="card in cardItems"
             :key="card.title"
             :class="card.colors"
-            class="w-[110px] h-[106px] rounded-[10px] p-3 text-gray-900"
+            class="w-full md:w-[110px] h-[106px] rounded-[10px] p-3 text-gray-900"
         >
             <p class="text-sm text-gray-500 font-medium">{{ card.title }}</p>
             <p class="text-[32px] font-bold">{{ card.count }}</p>

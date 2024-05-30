@@ -39,7 +39,7 @@ const updatePassword = () => {
             <h2 class="text-lg font-medium text-gray-900">Password</h2>
         </header>
 
-        <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
+        <form @submit.prevent="updatePassword" class="mt-6 space-y-6 font-inter">
             <div>
                 <InputLabel for="current_password" value="Current Password" />
 
@@ -94,7 +94,15 @@ const updatePassword = () => {
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+                <section class="flex justify-between w-full">
+                    <div />
+                    <Btn
+                        type="submit"
+                        :disabled="form.processing || !form.isDirty"
+                    >
+                        Save changes
+                    </Btn>
+                </section>
 
                 <Transition
                     enter-active-class="transition ease-in-out"

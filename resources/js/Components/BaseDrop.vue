@@ -14,7 +14,7 @@ const props = defineProps({
         default: false,
     },
     width: {
-        default: 'w-[195px]',
+        default: 'md:w-[195px] w-full',
     },
     label: {
         default: '',
@@ -95,7 +95,7 @@ function onUpdate(item) {
                     <span>{{ basedropItem.title }}:</span>
                     <span
                         class="w-full text-start font-inter capitalize text-gray-900"
-                        >{{ basedropItem.selection }}</span
+                        >{{ model || basedropItem.selection }}</span
                     >
                 </template>
                 <ChevDown class="flex-shrink-0" />

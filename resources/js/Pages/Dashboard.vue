@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import { computed, provide, reactive } from 'vue';
+import { computed, provide, reactive, ref } from 'vue';
 import { statusEnum, groupBy } from '@/util';
 
 const props = defineProps({
@@ -17,6 +17,10 @@ const todoModal = reactive({
 
 provide('todoModal', todoModal);
 
+const searchTerm = ref('');
+const statusFilter = ref('all');
+const priorityFilter = ref('all');
+
 const expanded = reactive({
     [statusEnum.PENDING]: false,
     [statusEnum.BACKLOG]: false,
@@ -25,6 +29,7 @@ const expanded = reactive({
 
 const categoriesData = computed(() => {
     const groupedTodos = groupBy(props.todos, 'status');
+
     const result = {};
 
     for (const category of Object.values(statusEnum)) {
@@ -36,6 +41,29 @@ const categoriesData = computed(() => {
     }
 
     return result;
+});
+
+const filteredData = computed(() => {
+    const { todos } = props;
+    const search = searchTerm.value.toLowerCase();
+    const status = statusFilter.value;
+    const priority = priorityFilter.value;
+
+    const result = todos.filter((todo) => {
+        const matchesSearchTerm =
+            !search || todo.title.toLowerCase().includes(search);
+        const matchesStatusFilter = status === 'all' || todo.status === status;
+        const matchesPriorityFilter =
+            priority === 'all' || todo.priority === priority;
+        return (
+            matchesSearchTerm && matchesStatusFilter && matchesPriorityFilter
+        );
+    });
+
+    return {
+        result: result.length === todos.length ? [] : result,
+        show: search || status !== 'all' || priority !== 'all',
+    };
 });
 
 function toggleAccordion(category) {
@@ -51,7 +79,7 @@ function toggleAccordion(category) {
             <!-- <template #header>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
             </template> -->
-            <section class="flex justify-between">
+            <section class="md:flex md:justify-between">
                 <UserCard
                     :showEmail="true"
                     imgClass="w-[72px] h-[72px]"
@@ -71,27 +99,28 @@ function toggleAccordion(category) {
             </section>
 
             <!-- inputs -->
-            <section class="flex gap-x-4">
-                <div class="relative w-full">
-                    <div
-                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
-                    >
-                        <SearchIcon />
-                    </div>
+            <section class="md:flex md:gap-x-4 md:space-y-0 space-y-4">
+                <TodoSearch v-model="searchTerm" />
 
-                    <input
-                        type="text"
-                        class="border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
-                        placeholder="Search todos..."
-                    />
-                </div>
-
-                <BaseDrop :isStatus="true" width="w-[191px]" />
-                <BaseDrop />
+                <BaseDrop
+                    v-model="statusFilter"
+                    :isStatus="true"
+                    width="md:w-[191px] w-full"
+                />
+                <BaseDrop v-model="priorityFilter" />
             </section>
 
             <!-- accords -->
-            <section>
+            <section v-if="filteredData.show">
+                <TodoItem
+                    v-for="todo in filteredData.result"
+                    :key="todo.id"
+                    :todo
+                    class="my-4"
+                />
+                <span class="text-gray-600 text-sm">0 filter result</span>
+            </section>
+            <section v-else>
                 <div
                     v-for="cat in categoriesData"
                     :key="cat.title"
