@@ -16,4 +16,9 @@ class Todo extends Model
         'status',
         'priority',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
