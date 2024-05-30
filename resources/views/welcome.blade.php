@@ -94,8 +94,8 @@
                     </section>
                 </main>
 
-                <footer class="py-6 text-sm text-black px-24 text-gray-400">
-                    TaskManager 2024
+                <footer class="py-6 text-sm px-24 text-gray-500 font-medium">
+                &#169; TaskManager 2024
                 </footer>
             </div>
         </div>
