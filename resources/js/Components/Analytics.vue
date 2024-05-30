@@ -1,36 +1,52 @@
 <script setup>
-import { computed } from "vue";
-import ChevUp2 from "@/Components/Icons/ChevUp2.vue";
-import Equal from "@/Components/Icons/Equal.vue";
-import ChevDown from "@/Components/Icons/ChevDown.vue";
+import { computed } from 'vue';
+import ChevUp2 from '@/Components/Icons/ChevUp2.vue';
+import Equal from '@/Components/Icons/Equal.vue';
+import ChevDown from '@/Components/Icons/ChevDown.vue';
+import { groupBy, priorityEnum } from '@/util';
 
-const cardItems = computed(() => [
-    {
-        title: "Pending",
-        count: 6,
-        colors: "bg-amber-50",
-        details: [
-            { title: "highest", count: 2, component: ChevUp2 },
-            { title: "medium", count: 3, component: Equal },
-            {
-                title: "low",
-                count: 1,
-                component: ChevDown,
-                class: "!stroke-blue-600",
-            },
-        ],
+const props = defineProps({
+    data: {
+        default: null,
     },
-    {
-        title: "Complete",
-        count: 12,
-        colors: "bg-success-50",
-    },
-    {
-        title: "Backlog",
-        count: 6,
-        colors: "bg-gray-50",
-    },
-]);
+});
+
+const cardItems = computed(() => {
+    const priorityCount = groupBy(props.data.pending.todos, 'priority');
+
+    return [
+        {
+            title: 'Pending',
+            count: props.data?.pending?.todos?.length || 0,
+            colors: 'bg-amber-50',
+            details: [
+                {
+                    count: priorityCount[priorityEnum.HIGHEST]?.length || 0,
+                    component: ChevUp2,
+                },
+                {
+                    count: priorityCount[priorityEnum.MEDIUM]?.length || 0,
+                    component: Equal,
+                },
+                {
+                    count: priorityCount[priorityEnum.LOW]?.length || 0,
+                    component: ChevDown,
+                    class: '!stroke-blue-600',
+                },
+            ],
+        },
+        {
+            title: 'Complete',
+            count: props.data.complete.todos.length || 0,
+            colors: 'bg-success-50',
+        },
+        {
+            title: 'Backlog',
+            count: props.data.backlog.todos.length || 0,
+            colors: 'bg-gray-50',
+        },
+    ];
+});
 </script>
 
 <template>

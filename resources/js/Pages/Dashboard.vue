@@ -1,56 +1,39 @@
 <script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
-import Analytics from "@/Components/Analytics.vue";
-import { computed, reactive } from "vue";
-import { priorityEnum, statusEnum } from "@/util";
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Head } from '@inertiajs/vue3';
+import { computed, reactive } from 'vue';
+import { statusEnum, groupBy } from '@/util';
 
-const categories = reactive({
-    pending: {
-        title: "Pending",
-        expanded: true,
-        todos: [
-            {
-                id: "1234dsf",
-                title: "Fish project",
-                description: "Fish project",
-                createdAt: "Mar 25th 2024",
-                status: statusEnum.PENDING,
-                priority: priorityEnum.HIGHEST,
-            },
-        ],
-    },
-    backlog: {
-        title: "Backlog",
-        expanded: false,
-        todos: [
-            {
-                id: "1234dsf",
-                title: "Fish project",
-                description: "Fish project",
-                createdAt: "Mar 25th 2024",
-                status: statusEnum.BACKLOG,
-                priority: priorityEnum.HIGH,
-            },
-        ],
-    },
-    complete: {
-        title: "Complete",
-        expanded: false,
-        todos: [
-            {
-                id: "1234dsf",
-                title: "Fish project",
-                description: "Fish project",
-                createdAt: "Mar 25th 2024",
-                status: statusEnum.COMPLETE,
-                priority: priorityEnum.LOW,
-            },
-        ],
+const props = defineProps({
+    todos: {
+        default: null,
     },
 });
 
-const _categories = computed(() => 0);
+const expanded = reactive({
+    [statusEnum.PENDING]: false,
+    [statusEnum.BACKLOG]: false,
+    [statusEnum.COMPLETE]: false,
+});
+
+const categoriesData = computed(() => {
+    const groupedTodos = groupBy(props.todos, 'status');
+    const result = {};
+
+    for (const category of Object.values(statusEnum)) {
+        result[category] = {
+            title: category,
+            expanded: expanded[category],
+            todos: groupedTodos[category],
+        };
+    }
+
+    return result;
+});
+
+function toggleAccordion(category) {
+    expanded[category] = !expanded[category];
+}
 </script>
 
 <template>
@@ -70,7 +53,7 @@ const _categories = computed(() => 0);
                     class="space-x-2 pl-0"
                 />
 
-                <Analytics />
+                <Analytics :data="categoriesData" />
             </section>
 
             <!-- todos -->
@@ -103,16 +86,16 @@ const _categories = computed(() => 0);
             <!-- accords -->
             <section>
                 <div
-                    v-for="cat in categories"
+                    v-for="cat in categoriesData"
                     :key="cat.title"
                     class="border-b last:border-0 border-gray-300"
                 >
                     <div
                         class="flex justify-between items-center py-3 cursor-default group"
-                        @click="cat.expanded = !cat.expanded"
+                        @click="toggleAccordion(cat.title)"
                     >
                         <p
-                            class="text-xl font-medium group-hover:text-primary-600"
+                            class="text-xl font-medium group-hover:text-primary-600 capitalize"
                         >
                             {{ cat.title }}
                         </p>

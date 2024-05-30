@@ -11,3 +11,12 @@ export const statusEnum = {
     BACKLOG: 'backlog',
     COMPLETE: 'complete',
 }
+
+export function groupBy(array, property) {
+    return array.reduce((groups, item) => {
+        const key = item[property] || 'Loading..';
+        groups[key] = groups[key] || [];
+        groups[key].push(item);
+        return groups;
+    }, {});
+}
