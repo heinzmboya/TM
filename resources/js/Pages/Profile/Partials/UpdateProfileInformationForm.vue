@@ -31,7 +31,7 @@ const form = useForm({
         <div class="relative inline-block">
             <img
                 class="inline-block w-[100px] h-[100px] rounded-full"
-                src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=300&h=300&auto=format&fit=crop&ixlib=rb-4.0.3"
+                :src="$page.props.auth.user.avatar || avatar"
                 alt="Image Description"
             />
             <span class="absolute bottom-0 end-0 p-0.1 rounded-full bg-white">

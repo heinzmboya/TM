@@ -20,3 +20,5 @@ export function groupBy(array = [], property) {
         return groups;
     }, {});
 }
+
+export const avatar = "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=300&h=300&auto=format&fit=crop&ixlib=rb-4.0.3"

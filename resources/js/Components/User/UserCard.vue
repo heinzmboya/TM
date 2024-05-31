@@ -1,21 +1,22 @@
 <script setup>
-import ChevDown from "@/Components/Icons/ChevDown.vue";
+import ChevDown from '@/Components/Icons/ChevDown.vue';
+import { avatar } from '@/util';
 
 const props = defineProps({
     showEmail: {
         default: false,
     },
     imgClass: {
-        default: "w-8 h-8",
+        default: 'w-8 h-8',
     },
     nameClass: {
-        default: "",
+        default: '',
     },
     emailClass: {
-        default: "text-xs",
+        default: 'text-xs',
     },
     class: {
-        default: "space-x-1",
+        default: 'space-x-1',
     },
 });
 </script>
@@ -28,7 +29,7 @@ const props = defineProps({
     >
         <img
             class="rounded-full"
-            src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+            :src="$page.props.auth.user.avatar || avatar"
             alt="Rounded avatar"
             :class="imgClass"
         />
