@@ -28,6 +28,7 @@ defineEmits(['toggleAccordion']);
             :key="cat.title"
             class="border-b last:border-0 border-gray-300"
         >
+            <!-- category title -->
             <div
                 class="flex justify-between items-center py-3 cursor-default group"
                 @click="$emit('toggleAccordion', cat.title)"
@@ -43,6 +44,7 @@ defineEmits(['toggleAccordion']);
                 />
             </div>
 
+            <!-- expanding section -->
             <section
                 class="transition-all duration-500 ease-in-out grid"
                 :class="

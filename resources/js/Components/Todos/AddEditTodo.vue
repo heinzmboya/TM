@@ -2,7 +2,6 @@
 import { inject, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
-const emit = defineEmits(['update:checked']);
 const form = useForm({
     status: null,
     priority: null,
@@ -52,7 +51,7 @@ watch(
             + Add todo
         </Btn>
 
-        <Modal :show="todoModal.showing" @close="closeModal" maxWidth="sm">
+        <Modal :show="todoModal.showing" @close="closeModal" maxWidth="md">
             <div class="">
                 <!-- header -->
                 <div
@@ -72,11 +71,11 @@ watch(
                     <!-- body -->
                     <div class="p-4 space-y-3 font-inter">
                         <!-- drops -->
-                        <section class="flex gap-x-3">
+                        <section class="sm:flex gap-x-3">
                             <div class="w-full">
                                 <span class="text-xs">Status</span>
                                 <BaseDrop
-                                    label="Select status"
+                                    addModalLabel="Select status"
                                     :isStatus="true"
                                     width="w-full"
                                     v-model="form.status"
@@ -86,7 +85,7 @@ watch(
                             <div class="w-full">
                                 <span class="text-xs">Priority</span>
                                 <BaseDrop
-                                    label="Select priority"
+                                    addModalLabel="Select priority"
                                     width="w-full"
                                     v-model="form.priority"
                                 />

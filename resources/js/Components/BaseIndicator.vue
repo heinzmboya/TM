@@ -7,9 +7,6 @@ import ChevDown from '@/Components/Icons/ChevDown.vue';
 const emit = defineEmits(['update']);
 
 const props = defineProps({
-    type: {
-        default: 'priority',
-    },
     isStatus: {
         default: false,
     },
@@ -81,7 +78,7 @@ function onClick(item) {
     <div
         v-for="pr in basedropItem.items"
         :key="pr.value"
-        class="flex items-center text-start text-sm leading-5 text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out font-inter cursor-default"
+        class="flex items-center text-start text-sm leading-5 text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out cursor-default"
         :class
         @click="onClick(pr)"
     >

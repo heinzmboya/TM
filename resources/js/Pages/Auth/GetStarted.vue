@@ -19,14 +19,14 @@ defineProps({
                 Create an account to start managing your tasks.
             </p>
 
-            <a href="/auth/redirect" class="block">
-                <Btn
-                    type="submit"
-                    class="w-full !bg-gray-100 !text-gray-900 py-4 !text-lg !font-medium flex justify-center gap-x-3"
-                >
+            <Btn
+                type="submit"
+                class="!bg-gray-100 !text-gray-900 py-4 !text-lg !font-medium w-full"
+            >
+                <a href="/auth/redirect" class="flex justify-center gap-x-3">
                     <Google /> <span>Continue with Google</span>
-                </Btn>
-            </a>
+                </a>
+            </Btn>
 
             <Btn class="w-full !text-lg !font-medium py-4">
                 <Link :href="route('register')"> Continue with Email </Link>

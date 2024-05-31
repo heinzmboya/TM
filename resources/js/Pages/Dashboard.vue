@@ -103,6 +103,7 @@ defineOptions({ layout: AuthenticatedLayout });
                 <section class="md:flex md:gap-x-4 md:space-y-0 space-y-4">
                     <TodoSearch v-model="searchTerm" />
 
+                    <!-- status & priority dropdowns -->
                     <BaseDrop
                         v-model="statusFilter"
                         :isStatus="true"
