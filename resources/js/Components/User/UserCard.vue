@@ -29,21 +29,21 @@ const props = defineProps({
     >
         <img
             class="rounded-full"
-            :src="$page.props.auth.user.avatar || avatar"
+            :src="$page.props.auth.user?.avatar || avatar"
             alt="Rounded avatar"
             :class="imgClass"
         />
 
         <section class="text-start space-y-1 hidden sm:block">
             <div class="capitalize" :class="nameClass">
-                {{ $page.props.auth.user.name }}
+                {{ $page.props.auth.user?.name }}
             </div>
             <div
                 v-if="showEmail"
                 class="text-gray-500 font-normal font-inter"
                 :class="emailClass"
             >
-                {{ $page.props.auth.user.email }}
+                {{ $page.props.auth.user?.email }}
             </div>
         </section>
 

@@ -32,7 +32,14 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
+        <div class="mb-[18px] flex space-x-3">
+            <Link :href="route('get-started')">
+                <LeftArrow />
+            </Link>
+            <p class="font-semibold text-2xl">Login using your email</p>
+        </div>
+
+        <form @submit.prevent="submit" class="space-y-4">
             <FormInput
                 id="email"
                 v-model="form.email"
@@ -48,11 +55,9 @@ const submit = () => {
                 :form
                 label="Password"
                 type="password"
-                autofocus
-                labelClass="mt-4"
             />
 
-            <div class="flex justify-end mt-2">
+            <div class="flex justify-end">
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
@@ -63,7 +68,7 @@ const submit = () => {
                 </Link>
             </div>
 
-            <Btn type="submit" class="w-full my-4" :disabled="form.processing">
+            <Btn type="submit" class="w-full" :disabled="form.processing">
                 Login
             </Btn>
 

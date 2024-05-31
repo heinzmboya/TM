@@ -29,7 +29,7 @@ const form = useForm({
         <div class="relative inline-block">
             <img
                 class="inline-block w-[100px] h-[100px] rounded-full"
-                :src="$page.props.auth.user.avatar || avatar"
+                :src="$page.props.auth.user?.avatar || avatar"
                 alt="Image Description"
             />
             <span class="absolute bottom-0 end-0 p-0.1 rounded-full bg-white">

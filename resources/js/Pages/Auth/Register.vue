@@ -20,6 +20,13 @@ const submit = () => {
     <GuestLayout>
         <Head title="Register" />
 
+        <div class="mb-[18px] flex space-x-3">
+            <Link :href="route('get-started')">
+                <LeftArrow />
+            </Link>
+            <p class="font-semibold text-2xl">Register using your email</p>
+        </div>
+
         <form @submit.prevent="submit" class="space-y-4">
             <FormInput
                 id="name"

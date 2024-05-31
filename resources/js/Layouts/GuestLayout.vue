@@ -2,11 +2,7 @@
     <div
         class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0"
     >
-        <div>
-            <a href="/">
-                <ApplicationLogo class="w-20 h-20" />
-            </a>
-        </div>
+        <BaseHeader :hideUserCard="true" class="mb-16" />
 
         <div
             class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white border overflow-hidden sm:rounded-lg"

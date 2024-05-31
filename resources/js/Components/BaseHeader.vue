@@ -1,5 +1,11 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
+
+defineProps({
+    hideUserCard: {
+        default: false,
+    },
+});
 </script>
 
 <template>
@@ -22,7 +28,7 @@ import { Link } from '@inertiajs/vue3';
                 </Link>
             </div>
 
-            <UserMenu />
+            <UserMenu v-if="!hideUserCard" />
         </div>
     </div>
 </template>
