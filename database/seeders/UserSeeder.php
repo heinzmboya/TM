@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
                 ]);
             }
 
-            echo "User: {$user->name}, Email: {$user->email}, Password: {$user->password}\n";
+            echo "User: {$user->name}, Email: {$user->email}, Password: 'password'\n";
         });
     }
 }

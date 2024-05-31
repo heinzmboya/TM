@@ -17,7 +17,7 @@ const cardItems = computed(() => {
     return [
         {
             title: 'Pending',
-            count: props.data?.pending?.todos?.length || 0,
+            count: props.data.pending.todos?.length || 0,
             colors: 'bg-amber-50',
             details: [
                 {
@@ -37,12 +37,12 @@ const cardItems = computed(() => {
         },
         {
             title: 'Complete',
-            count: props.data.complete.todos.length || 0,
+            count: props.data.complete.todos?.length || 0,
             colors: 'bg-success-50',
         },
         {
             title: 'Backlog',
-            count: props.data.backlog.todos.length || 0,
+            count: props.data.backlog.todos?.length || 0,
             colors: 'bg-gray-50',
         },
     ];

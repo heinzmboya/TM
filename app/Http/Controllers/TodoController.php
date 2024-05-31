@@ -32,8 +32,6 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        echo "User: {$request}\n";
-
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',

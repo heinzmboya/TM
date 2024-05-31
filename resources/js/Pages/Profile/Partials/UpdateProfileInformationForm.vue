@@ -1,7 +1,6 @@
 <script setup>
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
@@ -27,6 +26,19 @@ const form = useForm({
         <header>
             <h2 class="text-lg font-medium text-gray-900">Profile</h2>
         </header>
+
+        <!-- Avatar -->
+        <div class="relative inline-block">
+            <img
+                class="inline-block w-[100px] h-[100px] rounded-full"
+                src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=300&h=300&auto=format&fit=crop&ixlib=rb-4.0.3"
+                alt="Image Description"
+            />
+            <span class="absolute bottom-0 end-0 p-0.1 rounded-full bg-white">
+                <Camera class="h-8 w-8" />
+            </span>
+        </div>
+        <!-- End Avatar -->
 
         <form
             @submit.prevent="form.patch(route('profile.update'))"

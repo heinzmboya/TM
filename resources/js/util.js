@@ -12,9 +12,9 @@ export const statusEnum = {
     COMPLETE: 'complete',
 }
 
-export function groupBy(array, property) {
+export function groupBy(array = [], property) {
     return array.reduce((groups, item) => {
-        const key = item[property] || 'Loading..';
+        const key = item[property];
         groups[key] = groups[key] || [];
         groups[key].push(item);
         return groups;

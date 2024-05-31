@@ -61,7 +61,7 @@ const filteredData = computed(() => {
     });
 
     return {
-        result: result.length === todos.length ? [] : result,
+        result,
         show: search || status !== 'all' || priority !== 'all',
     };
 });
@@ -118,7 +118,11 @@ function toggleAccordion(category) {
                     :todo
                     class="my-4"
                 />
-                <span class="text-gray-600 text-sm">0 filter result</span>
+                <span
+                    v-if="!filteredData.result.length"
+                    class="text-gray-600 text-sm"
+                    >0 filter result</span
+                >
             </section>
             <section v-else>
                 <div
@@ -156,6 +160,11 @@ function toggleAccordion(category) {
                                 :todo
                                 class="my-4"
                             />
+                            <span
+                                v-if="!cat.todos?.length"
+                                class="text-gray-400 text-xs"
+                                >No available todos</span
+                            >
                         </div>
                     </section>
                 </div>
