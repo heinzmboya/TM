@@ -34,7 +34,7 @@ const props = defineProps({
             :class="imgClass"
         />
 
-        <section class="text-start space-y-1">
+        <section class="text-start space-y-1 hidden sm:block">
             <div class="capitalize" :class="nameClass">
                 {{ $page.props.auth.user.name }}
             </div>

@@ -37,7 +37,7 @@ const props = defineProps({
 
             <!-- usermenu -->
             <!-- Hamburger -->
-            <slot />
+            <UserMenu />
         </div>
     </div>
 </template>

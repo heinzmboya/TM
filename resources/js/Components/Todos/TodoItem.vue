@@ -1,20 +1,18 @@
 <script setup>
 import { computed, inject } from 'vue';
-import CheckCircle from './Icons/CheckCircle.vue';
-import FlipBack from './Icons/FlipBack.vue';
-import PencilLine from './Icons/PencilLine.vue';
-import Trash from './Icons/Trash.vue';
-import { priorityEnum, statusEnum } from '@/util';
-import ClockForward from './Icons/ClockForward.vue';
+import FlipBack from '../Icons/FlipBack.vue';
+import PencilLine from '../Icons/PencilLine.vue';
+import Trash from '../Icons/Trash.vue';
+import { statusEnum } from '@/util';
+import ClockForward from '../Icons/ClockForward.vue';
 import { useForm } from '@inertiajs/vue3';
+import CheckCircle from '../Icons/CheckCircle.vue';
 
 const todoModal = inject('todoModal');
 
 const form = useForm({
     status: null,
 });
-
-const emit = defineEmits(['update:checked']);
 
 const props = defineProps({
     todo: {

@@ -1,7 +1,5 @@
-<script setup></script>
-
 <template>
-    <div class="hidden sm:flex sm:items-center sm:ms-6">
+    <div class="flex items-center ms-6">
         <!-- Settings Dropdown -->
         <div class="ms-3 relative">
             <Dropdown align="right" width="48">

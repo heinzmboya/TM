@@ -1,5 +1,5 @@
 <script setup>
-import { inject, onMounted, watch } from 'vue';
+import { inject, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 const emit = defineEmits(['update:checked']);
@@ -21,6 +21,7 @@ const closeModal = () => {
 };
 
 function submit() {
+    console.log(form.errors);
     if (!form.status) form.status = 'pending';
     if (!form.priority) form.priority = 'low';
 
@@ -58,28 +59,13 @@ watch(
                     class="flex justify-between items-center py-3 px-4 border-b"
                 >
                     <p class="font-semibold text-xl">New Todo</p>
-                    <button
-                        type="button"
-                        class="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-                        data-hs-overlay="#hs-basic-modal"
+
+                    <Btn
+                        class="hover:!bg-gray-100 bg-transparent !text-gray-900 !rounded-full !p-2"
+                        @click="closeModal"
                     >
-                        <span class="sr-only">Close</span>
-                        <svg
-                            class="flex-shrink-0 size-4"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-                            <path d="M18 6 6 18"></path>
-                            <path d="m6 6 12 12"></path>
-                        </svg>
-                    </button>
+                        <Close />
+                    </Btn>
                 </div>
 
                 <form @submit.prevent="submit">
@@ -108,75 +94,38 @@ watch(
                         </section>
 
                         <!-- title -->
-                        <section>
-                            <div>
-                                <InputLabel
-                                    class="text-sm"
-                                    for="title"
-                                    value="Todo title"
-                                />
-
-                                <TextInput
-                                    id="title"
-                                    type="text"
-                                    class="mt-1 block w-full"
-                                    v-model="form.title"
-                                    required
-                                    autofocus
-                                    autocomplete="title"
-                                />
-
-                                <InputError
-                                    class="mt-2"
-                                    :message="form.errors.title"
-                                />
-                            </div>
-                        </section>
+                        <FormInput
+                            id="title"
+                            v-model="form.title"
+                            :form
+                            label="Todo title"
+                            autofocus
+                        />
 
                         <!-- editor -->
-                        <section>
-                            <div>
-                                <InputLabel
-                                    class="text-sm"
-                                    for="desc"
-                                    value="Todo description"
-                                />
+                        <FormInput
+                            id="description"
+                            v-model="form.description"
+                            :form
+                            label="Todo description"
+                        />
+                    </div>
 
-                                <TextInput
-                                    id="desc"
-                                    type="text"
-                                    class="mt-1 block w-full"
-                                    v-model="form.description"
-                                    required
-                                    autofocus
-                                    autocomplete="desc"
-                                />
-
-                                <InputError
-                                    class="mt-2"
-                                    :message="form.errors.description"
-                                />
-                            </div>
-                        </section>
+                    <!-- footer -->
+                    <div
+                        class="flex justify-end items-center gap-x-3 py-3 px-4"
+                    >
+                        <Btn
+                            @click="todoModal.showing = false"
+                            class="!bg-gray-50 hover:!bg-gray-100 !text-gray-900 !font-medium"
+                        >
+                            Cancel
+                        </Btn>
+                        <Btn type="submit" :disabled="form.processing">
+                            {{ todoModal.editTodo ? 'Update' : 'Create' }} todo
+                        </Btn>
                     </div>
                 </form>
-
-                <!-- footer -->
-                <div class="flex justify-end items-center gap-x-3 py-3 px-4">
-                    <Btn
-                        @click="todoModal.showing = false"
-                        class="!bg-gray-50 hover:!bg-gray-100 !text-gray-900 !font-medium"
-                    >
-                        Cancel
-                    </Btn>
-                    <Btn
-                        @click="submit"
-                        type="submit"
-                        :disabled="form.processing"
-                    >
-                        {{ todoModal.editTodo ? 'Update' : 'Create' }} todo
-                    </Btn>
-                </div>
             </div>
         </Modal>
     </div>
