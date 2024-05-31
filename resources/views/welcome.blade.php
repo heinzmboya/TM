@@ -81,9 +81,13 @@
                         </p>
 
 
-                        <button type="button" class="py-4 px-6 text-lg font-medium rounded-lg bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none">
-                            Get started
-                        </button>
+                        <a href="{{ route('get-started') }}">
+                            <button type="button" class="py-4 px-6 text-lg font-medium rounded-lg bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none">
+                                Get started
+                            </button>
+
+                        </a>
+
                     </section>
                     <section class="md:w-1/2  relative">
                         <img class="w-full h-full object-cover absolute -right-50" src="/images/group.png" alt="Logo" />

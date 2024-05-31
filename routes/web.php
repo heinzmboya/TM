@@ -22,11 +22,12 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/get-started', function () {
+    return Inertia::render('Auth/GetStarted');
+})->name('get-started');
+
 Route::get(
     '/dashboard',
-    // function () {
-    //     return Inertia::render('Dashboard');
-    // },
     [TodoController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard');
 
