@@ -18,6 +18,9 @@ const props = defineProps({
     labelClass: {
         default: '',
     },
+    useEditor: {
+        default: false,
+    },
 });
 
 const model = defineModel();
@@ -44,7 +47,14 @@ defineExpose({ focus: () => inputRef.value.focus() });
             {{ label }}
         </label>
 
+        <editor
+            v-if="useEditor"
+            @update="(val) => (model = val.text ? val.html : '')"
+        />
+        <!-- v-model="model" -->
+
         <input
+            v-else
             :id
             required
             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1"

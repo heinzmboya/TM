@@ -82,9 +82,7 @@ const todoActions = computed(() =>
         <section class="space-y-2 font-medium font-inter text-gray-500">
             <div class="text-gray-900 text-base">{{ todo.title }}</div>
             <div class="text-xs">{{ todo.createdAt }}</div>
-            <div class="text-sm font-normal">
-                {{ todo.description }}
-            </div>
+            <div class="prose text-sm font-normal" v-html="todo.description"></div>
 
             <section class="flex gap-x-2">
                 <BaseIndicator

@@ -107,6 +107,7 @@ watch(
                             v-model="form.description"
                             :form
                             label="Todo description"
+                            :useEditor="true"
                         />
                     </div>
 
