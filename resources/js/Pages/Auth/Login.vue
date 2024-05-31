@@ -69,7 +69,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="flex justify-end mt-2 mb-4">
+            <div class="flex justify-end mt-2">
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
@@ -80,9 +80,19 @@ const submit = () => {
                 </Link>
             </div>
 
-            <Btn type="submit" class="w-full" :disabled="form.processing">
+            <Btn type="submit" class="w-full my-4" :disabled="form.processing">
                 Login
             </Btn>
+
+            <div class="text-center">
+                <Link
+                    :href="route('register')"
+                    class="text-sm text-gray-500 hover:text-gray-900 font-medium"
+                >
+                    Don't have an account?
+                    <span class="text-primary-600">Register</span>
+                </Link>
+            </div>
         </form>
     </GuestLayout>
 </template>
