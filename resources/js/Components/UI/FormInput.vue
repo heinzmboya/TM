@@ -50,8 +50,8 @@ defineExpose({ focus: () => inputRef.value.focus() });
         <editor
             v-if="useEditor"
             @update="(val) => (model = val.text ? val.html : '')"
+            :model="model"
         />
-        <!-- v-model="model" -->
 
         <input
             v-else

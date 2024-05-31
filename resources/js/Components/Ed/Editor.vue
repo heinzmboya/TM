@@ -10,7 +10,11 @@ import UnderlineExt from '@tiptap/extension-underline';
 
 const emit = defineEmits(['update']);
 
-// const model = defineModel();
+const props = defineProps({
+    model: {
+        default: '',
+    },
+});
 
 const editor = useEditor({
     editorProps: {
@@ -21,11 +25,6 @@ const editor = useEditor({
     content: '<p>T-<u>manager</u>...</p>',
     extensions: [StarterKit, UnderlineExt],
     onUpdate: () => {
-        // model.value = editor.value.getHTML();
-        // {
-        //     html: editor.value.getHTML(),
-        //     text: editor.value.getText(),
-        // };
         emit('update', {
             text: editor.value.getText(),
             html: editor.value.getHTML(),
@@ -38,6 +37,10 @@ onMounted(() => {
         text: editor.value.getText(),
         html: editor.value.getHTML(),
     });
+
+    if (props.model) {
+        editor.value.commands.setContent(props.model);
+    }
 });
 
 const btnList = computed(() => [
